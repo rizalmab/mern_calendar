@@ -3,6 +3,7 @@ const { urlencoded } = require("express");
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path"); //this is required for deployment in Heroku. Herman: Just put it in
+const holidaysController = require("./controllers/holidaysController");
 
 //* config
 require("dotenv").config();
@@ -27,6 +28,7 @@ mongoose.connection.once("open", () => {
 app.use(express.json());
 app.use(urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "./client/build"))); // this is needed for deployment in Heroku
+app.use("/api/holidays", holidaysController)
 
 //* routes
 app.use("/api/test", (req, res) => {
